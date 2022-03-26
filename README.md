@@ -1,5 +1,7 @@
 # OnionSocket
 
+Last CI-run: [actions/workflows/main.yml](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml)
+
 ## Introduction
 OnionSocket is a Java library connecting your application to a internet address through onion routers, enabling anonymous interaction. Your network packets gets encrypted in mulitple layers and sent through multiple Onion Nodes, each peeling off one layer of encryption, before reaching your intended destination. By using at least three nodes it becomes difficult to identify the actual sender and reciever of packets.
 This library uses no external libraries.
@@ -18,7 +20,7 @@ This library uses no external libraries.
 ## Limitations
 - The keys are only 1024b in size, it should preferably be 2048b
 - Messages can only be 512b long
-- No automatic reconnetion if something fails
+- No automatic reconnection if something fails
 
 ## Install instructions
 

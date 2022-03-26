@@ -1,6 +1,6 @@
 # OnionSocket
 
-Last CI-run: [actions/workflows/main.yml](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml)
+[![Java CI with Maven](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml/badge.svg)](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml)
 
 ## Introduction
 OnionSocket is a Java library connecting your application to a internet address through onion routers, enabling anonymous interaction. Your network packets gets encrypted in mulitple layers and sent through multiple Onion Nodes, each peeling off one layer of encryption, before reaching your intended destination. By using at least three nodes it becomes difficult to identify the actual sender and reciever of packets.

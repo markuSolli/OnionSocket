@@ -19,26 +19,67 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The OnionNode class is used to relay messages through an onion network.
+ * By calling {@link #launch() launch()} the server will start.
+ * By default the server will run on port 3000.
+ */
 public class OnionNode {
     private final int portnr;
     private final String distAddress;
     private final int distPort;
     private boolean running = true;
 
+    /**
+     * Make a new OnionNode with a custom portnumber
+     * @param portnr an available port
+     * @throws IOException
+     */
     public OnionNode(int portnr) throws IOException {
         this(portnr, Standards.DIST, Standards.DISTPORT);
     }
 
+    /**
+     * Make a new OnionNode with a specified address
+     * for the {@link Distributor} running in the network.
+     * By default the OnionNode will try to connect to localhost:3040.
+     * @param distAddress the IP-address of the NodeDistributor
+     * @param distPort the portnumber of the NodeDistributor
+     * @throws IOException
+     */
     public OnionNode(String distAddress, int distPort) throws IOException {
         this(Standards.PORTNR, distAddress, distPort);
     }
 
+    /**
+     * Make a new OnionNode with a custom portnumber, and a specified address
+     * for the {@link Distributor} running in the network.
+     * By default the OnionNode will try to connect to localhost:2999.
+     * @param portnr an available port to host on
+     * @param distAddress the IP-address of the NodeDistributor
+     * @param distPort the portnumber of the NodeDistributor
+     * @throws IOException
+     */
     public OnionNode(int portnr, String distAddress, int distPort) throws IOException {
         this.portnr = portnr;
         this.distAddress = distAddress;
         this.distPort = distPort;
     }
 
+    /**
+     * Launch the server. Will check in with the Distributor, afterwards
+     * it listens on the port handling connections in seperate threads.
+     * Will block until {@link #close()} is called.
+     * @throws IOException if an error occurs when:
+     * <ul>
+     * <li> creating the {@link Socket}, {@link OutputStream} or {@link ServerSocket} </li>
+     * <li> writing to OutputStream </li>
+     * <li> closing the Socket or OutputStream </li>
+     * <li> waiting for a connection </li>
+     * </ul>
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void launch() throws IOException, InterruptedException {
         //Check in at Distributor
         sendToDistributor(0);
@@ -72,10 +113,19 @@ public class OnionNode {
         }
     }
 
+    /**
+     * Close the OnionNode server safely
+     * @throws IOException
+     */
     public void close() throws IOException {
         running = false;
     }
 
+    /**
+     * Send a flag to the Distributor. 0 for check-in, 1 for check-out
+     * @param flag 0 or 1
+     * @throws IOException
+     */
     private void sendToDistributor(int flag) throws IOException {
         Socket socket = new Socket(distAddress, distPort);
         OutputStream output = socket.getOutputStream();
@@ -88,10 +138,20 @@ public class OnionNode {
     }
 }
 
+/**
+ * The NodeThread class is called by {@link OnionNode} upon connection with a client
+ * or node. This class handles the initial key exchange before it goes into relay mode,
+ * encrypting traffic going backwards in the chain and decrypting traffic going forwards in the
+ * chain.
+ */
 class NodeThread implements Runnable{
     private final Socket socket;
     private boolean running = true;
 
+    /**
+     * Create a new object to be ran in a seperate thread.
+     * @param socket the socket object to communicate with
+     */
     public NodeThread(Socket socket){
         this.socket = socket;
     }

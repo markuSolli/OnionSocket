@@ -14,14 +14,28 @@ import java.security.KeyPair;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
+/**
+ * The Standards class is a static class for package-wide constants and methods.
+ */
 public final class Standards {
-    public static final int PORTNR = 3000;
-    public static final String DIST = "localhost";
-    public static final int DISTPORT = 3040;
-    public static final int PACKETSIZE = 512;
-    public static final int NODES = 3;
-    public static final int KEYSIZE = 1024;
+    public static final int PORTNR = 3000;                  //port number to run servers on
+    public static final String DIST = "localhost";          //address for the Distributor
+    public static final int DISTPORT = 3040;                //port for the Distributor
+    public static final int PACKETSIZE = 512;               //packet size
+    public static final int NODES = 3;                      //number of nodes in a chain
+    public static final int KEYSIZE = 1024;                 //Public key size
 
+    /**
+     * This methods handles a Diffie-Hellman key exchange as the recieving end.
+     * @param input the InputStream to read from
+     * @param output the OutputStream to write to
+     * @return a {@link SessionKey} object holding both the cipher and decipher, this
+     * will be the same object as the client who initiated the handshake.
+     * @throws IOException
+     * @throws InvalidKeySpecException
+     * @throws InvalidKeyException
+     * @throws InvalidAlgorithmParameterException
+     */
     public static SessionKey handleKeyExchange(InputStream input, OutputStream output) throws IOException, InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
         //Read other clients public key
         byte[] message = input.readNBytes(PACKETSIZE);

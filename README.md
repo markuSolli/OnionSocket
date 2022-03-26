@@ -12,10 +12,11 @@ This library uses no external libraries.
 - Rndom node assignment for each connection
 
 ## Future work
-- Client class for messaging with other clients
+- Client program for messaging with other clients
 - Enable larger packet sizes by sending fragments
-- Client class for requesting HTTP sites
+- Client program for requesting HTTP sites
 - Increase key size from 1024b to 2048b
+- Hidden services support
 
 ## Limitations
 - The keys are only 1024b in size, it should preferably be 2048b

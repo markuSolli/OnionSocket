@@ -9,7 +9,7 @@ This library uses no external libraries.
 ## Implemented functionality
 - Layered encryption
 - Send and recieve messages up to 512 bytes
-- The Distributor assigns random nodes for each connection
+- Rndom node assignment for each connection
 
 ## Future work
 - Client class for messaging with other clients

@@ -23,12 +23,17 @@ This library uses no external libraries.
 - No automatic reconnection if something fails
 
 ## Install instructions
+- Run 'mvn package' to get the .jar file
+- Either use this as a library, or run the .jar file with one of the main classes as argument to try the programs that are included
 
 ## How to use
 - Import the OnionSocket library
 - Construct an OnionSocket with the address you want to communicate with, a chain of random OnionNodes gets set up automatically
 - Use send() to send data to the destination address, and read() to read incoming data
 - Close the connection by calling close()
+
+### How to test
+- Run 'mvn test' to run through all unit tests
 
 ### How to use - locally
 Without an established network you will need to provide distribution and onion nodes yourself before starting.

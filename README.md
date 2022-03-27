@@ -25,7 +25,9 @@ This library uses no external libraries.
 - Run 'mvn package' to get the .jar file
 - Either use this as a library, or run the .jar file with one of the main classes as argument to try the programs that are included
   - router/Distributor: Host a distributor server
-  - router/Node: Host an OnionNode
+  - router/Node: Host an OnionNode  
+ Example:  
+```java -cp target/OnionSocket-1.0.jar markussp.onion.router.Distributor```
 
 ## How to use
 - Import the OnionSocket library

@@ -23,7 +23,7 @@ public final class Standards {
     public static final int DISTPORT = 3040;                //port for the Distributor
     public static final int PACKETSIZE = 512;               //packet size
     public static final int NODES = 3;                      //number of nodes in a chain
-    public static final int KEYSIZE = 1024;                 //Public key size
+    public static final int KEYSIZE = 2048;                 //Public key size
 
     /**
      * This methods handles a Diffie-Hellman key exchange as the recieving end.
@@ -38,7 +38,7 @@ public final class Standards {
      */
     public static SessionKey handleKeyExchange(InputStream input, OutputStream output) throws IOException, InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
         //Read other clients public key
-        byte[] message = input.readNBytes(PACKETSIZE);
+        byte[] message = input.readNBytes(PACKETSIZE << 1);
         byte[] lengthArray = Arrays.copyOf(message, 4);
         int length = ByteBuffer.wrap(lengthArray).getInt();
         byte[] otherEndodedKey = Arrays.copyOfRange(message, 4, 4 + length);
@@ -49,7 +49,7 @@ public final class Standards {
         Cipher cipher = Crypto.generateCipher(secretKeySpec);
 
         //Send public key and cipher parameters
-        message = new byte[PACKETSIZE];
+        message = new byte[PACKETSIZE << 1];
         byte[] encodedKey = keyPair.getPublic().getEncoded();
         lengthArray = ByteBuffer.allocate(4).putInt(encodedKey.length).array();
         byte[] encodedParams = cipher.getParameters().getEncoded();

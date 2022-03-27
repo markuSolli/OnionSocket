@@ -72,7 +72,7 @@ public class CryptoTest {
             assertNotNull(keyPairB);
 
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("DH");
-            keyPairGenerator.initialize(Standards.KEYSIZE * 2);
+            keyPairGenerator.initialize(Standards.KEYSIZE >> 1);
             KeyPair wrongKeyPair = keyPairGenerator.generateKeyPair();
 
             assertThrows(InvalidKeyException.class, () -> Crypto.generateSecretKeySpec(wrongKeyPair, keyPairB.getPublic().getEncoded()));

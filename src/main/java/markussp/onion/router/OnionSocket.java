@@ -162,18 +162,24 @@ public class OnionSocket {
         KeyPair keyPair = Crypto.generateKeyPair();
         byte[] publicKey = keyPair.getPublic().getEncoded();
         byte[] message = new byte[Standards.PACKETSIZE];
+        byte[] message2 = new byte[Standards.PACKETSIZE];
         byte[] lengthArray = ByteBuffer.allocate(4).putInt(publicKey.length).array();
         System.arraycopy(lengthArray, 0, message, 0, 4);
-        System.arraycopy(publicKey, 0, message, 4, publicKey.length);
+        System.arraycopy(publicKey, 0, message, 4, Standards.PACKETSIZE - 4);
+        System.arraycopy(publicKey, Standards.PACKETSIZE - 4, message2, 0, publicKey.length - Standards.PACKETSIZE + 4);
 
         send(message);
+        send(message2);
 
         //Read other public key and cipher parameters
         message = read();
+        message2 = read();
         lengthArray = Arrays.copyOf(message, 4);
         int keyLength = ByteBuffer.wrap(lengthArray).getInt();
-        byte[] otherEncodedKey = Arrays.copyOfRange(message, 4, 4 + keyLength);
-        byte[] encodedParams = Arrays.copyOfRange(message, 4 + keyLength, 22 + keyLength);
+        byte[] otherEncodedKey = new byte[keyLength];
+        System.arraycopy(message, 4, otherEncodedKey, 0, message.length - 4);
+        System.arraycopy(message2, 0, otherEncodedKey, message.length - 4, keyLength - message.length + 4);
+        byte[] encodedParams = Arrays.copyOfRange(message2, keyLength - message.length + 4, keyLength - message.length + 22);
 
         //Generate shared secret and ciphers
         SecretKeySpec secretKeySpec = Crypto.generateSecretKeySpec(keyPair, otherEncodedKey);

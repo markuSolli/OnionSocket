@@ -9,17 +9,15 @@ This library uses no external libraries.
 ## Implemented functionality
 - Layered encryption
 - Send and recieve messages up to 512 bytes
-- Rndom node assignment for each connection
+- Random node assignment for each connection
 
 ## Future work
 - Client program for messaging with other clients
 - Enable larger packet sizes by sending fragments
 - Client program for requesting HTTP sites
-- Increase key size from 1024b to 2048b
 - Hidden services support
 
 ## Limitations
-- The keys are only 1024b in size, it should preferably be 2048b
 - Messages can only be 512b long
 - No automatic reconnection if something fails
 

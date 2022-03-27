@@ -6,6 +6,9 @@
 OnionSocket is a Java library connecting your application to a internet address through onion routers, enabling anonymous interaction. Your network packets gets encrypted in mulitple layers and sent through multiple Onion Nodes, each peeling off one layer of encryption, before reaching your intended destination. By using at least three nodes it becomes difficult to identify the actual sender and reciever of packets.
 This library uses no external libraries.
 
+Examples on how to use the library:
+- TestClient and TestCLient2 showcases communication using the OnionSocket
+
 ## Implemented functionality
 - Layered encryption
 - Send and recieve messages up to 512 bytes

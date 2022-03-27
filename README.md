@@ -7,7 +7,7 @@ OnionSocket is a Java library connecting your application to a internet address 
 This library uses no external libraries.
 
 Examples on how to use the library:
-- TestClient and TestCLient2 showcases communication using the OnionSocket
+- TestClient and TestClient2 showcases communication using the OnionSocket
 
 ## Implemented functionality
 - Layered encryption

@@ -35,6 +35,7 @@ import java.util.Arrays;
  */
 public class OnionSocket {
     private SessionKey[] keys = new SessionKey[0];
+    private Socket socket;
     private InputStream input;
     private OutputStream output;
 
@@ -68,7 +69,7 @@ public class OnionSocket {
      */
     public OnionSocket(InetAddress distAddress, int distPort, InetAddress address, int port) throws IOException, InvalidAlgorithmParameterException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         //Request nodes from Distributor
-        Socket socket = new Socket(distAddress, distPort);
+        socket = new Socket(distAddress, distPort);
         input = socket.getInputStream();
         output = socket.getOutputStream();
         output.write(2);
@@ -144,6 +145,10 @@ public class OnionSocket {
         }
 
         return message;
+    }
+
+    public void close() throws IOException {
+        socket.close();
     }
 
     /**

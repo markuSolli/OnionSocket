@@ -21,17 +21,14 @@ public class TestClient2 {
         InputStream input = client.getInputStream();
         OutputStream output = client.getOutputStream();
 
-        byte[] message = input.readNBytes(Standards.PACKETSIZE);
-
-        System.out.println(new String(message, StandardCharsets.UTF_8).trim());
-
-        message = new byte[Standards.PACKETSIZE];
-        byte[] string = ("Hello from client 2").getBytes();
-        System.arraycopy(string, 0, message, 0, string.length);
-
-        output.write(message);
-
-        client.close();
-        server.close();
+        while(true){
+            byte[] message = input.readNBytes(Standards.PACKETSIZE);
+            String response = "From client: " + new String(message, StandardCharsets.UTF_8).trim();
+            System.out.println(response);
+            byte[] responseArray = response.getBytes(StandardCharsets.UTF_8);
+            message = new byte[Standards.PACKETSIZE];
+            System.arraycopy(responseArray, 0, message, 0, responseArray.length);
+            output.write(message);
+        }
     }
 }

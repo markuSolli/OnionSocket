@@ -3,11 +3,17 @@
 [![Java CI with Maven](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml/badge.svg)](https://github.com/markuSolli/OnionSocket/actions/workflows/main.yml)
 
 ## Introduction
-OnionSocket is a Java library connecting your application to a internet address through onion routers, enabling anonymous interaction. Your network packets gets encrypted in mulitple layers and sent through multiple Onion Nodes, each peeling off one layer of encryption, before reaching your intended destination. By using at least three nodes it becomes difficult to identify the actual sender and reciever of packets.
-This library uses no external libraries.
-
-Examples on how to use the library:
-- TestClient and TestClient2 showcases communication using the OnionSocket
+OnionSocket is a Java library connecting your application to an internet address through onion routers, enabling anonymous interaction. Your network packets gets encrypted in mulitple layers and sent through multiple Onion Nodes, each peeling off one layer of encryption, before reaching your intended destination. By using at least three nodes it becomes difficult to identify the actual sender and reciever of packets.
+This project uses no external libraries.  
+  
+#### Example on how to use the library:
+TestClient and TestClient2 showcases communication using the OnionSocket. To run this succesfully, four terminal windows needs to be open running theses commands:  
+```java -cp target/OnionSocket-1.0.jar markussp.onion.router.Distributor```  
+```java -cp target/OnionSocket-1.0.jar markussp.onion.TestLauncher 6 -Xmx```  
+```java -cp target/OnionSocket-1.0.jar markussp.onion.TestClient2```  
+```java -cp target/OnionSocket-1.0.jar markussp.onion.TestClient```  
+  
+Run them in the specified order. The nodes launched from TestLauncher needs to contact the Distributor, and TestClient will try to contact TestClient2.  
 
 ## Implemented functionality
 - Layered encryption
@@ -15,9 +21,9 @@ Examples on how to use the library:
 - Random node assignment for each connection
 
 ## Future work
-- Client program for messaging with other clients
 - Enable larger packet sizes by sending fragments
-- Client program for requesting HTTP sites
+- Demo for HTTP communication
+- Network stability
 - Hidden services support
 
 ## Limitations
@@ -25,11 +31,12 @@ Examples on how to use the library:
 - No automatic reconnection if something fails
 
 ## Install instructions
-- Run 'mvn package' to get the .jar file
+- Run ```mvn package``` to build a .jar file in the target directory
 - Either use this as a library, or run the .jar file with one of the main classes as argument to try the programs that are included
+Programs:
   - router/Distributor: Host a distributor server
   - router/Node: Host an OnionNode  
- Example:  
+Example on how to run:  
 ```java -cp target/OnionSocket-1.0.jar markussp.onion.router.Distributor```
 
 ## How to use
@@ -39,7 +46,7 @@ Examples on how to use the library:
 - Close the connection by calling close()
 
 ### How to test
-- Run 'mvn test' to run through all unit tests
+- Run ```mvn test``` to run through all unit tests
 
 ### How to use - locally
 Without an established network you will need to provide distribution and onion nodes yourself before starting.

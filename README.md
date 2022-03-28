@@ -33,7 +33,7 @@ Run them in the specified order. The nodes launched from TestLauncher needs to c
 ## Install instructions
 - Run ```mvn package``` to build a .jar file in the target directory
 - Either use this as a library, or run the .jar file with one of the main classes as argument to try the programs that are included
-Programs:
+Programs:  
   - router/Distributor: Host a distributor server
   - router/Node: Host an OnionNode  
 Example on how to run:  
